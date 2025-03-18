@@ -36,15 +36,15 @@ fun main() {
  */
 class App() {
     // Constants defining any key values
-    val MAX_CLICKS = 10
+   // val MAX_CLICKS = 10
 
     // Data fields
-    var clicks = 0
+   // var clicks = 0
 
     // Application logic functions
     fun updateClickCount() {
-        clicks++
-        if (clicks > MAX_CLICKS) clicks = MAX_CLICKS
+       // clicks++
+       // if (clicks > MAX_CLICKS) clicks = MAX_CLICKS
     }
 }
 
@@ -58,6 +58,9 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
 
     // Fields to hold the UI elements
     private lateinit var clicksLabel: JLabel
+    private lateinit var Map: JLabel
+    private lateinit var UI: TextField
+    private lateinit var clickButton: JButton
     private lateinit var move_Forward: JButton
     private lateinit var move_Backward: JButton
     private lateinit var move_Left: JButton
@@ -83,7 +86,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     private fun configureWindow() {
         title = "Kotlin Swing GUI Demo"
-        contentPane.preferredSize = Dimension(600, 350)
+        contentPane.preferredSize = Dimension(1000, 500)
         defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         isResizable = false
         layout = null
@@ -97,17 +100,57 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     private fun addControls() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 36)
 
-        clicksLabel = JLabel("CLICK INFO HERE")
-        clicksLabel.horizontalAlignment = SwingConstants.CENTER
-        clicksLabel.bounds = Rectangle(50, 50, 500, 100)
-        clicksLabel.font = baseFont
-        add(clicksLabel)
 
-        clickButton = JButton("Click Me!")
-        clickButton.bounds = Rectangle(50,200,500,100)
-        clickButton.font = baseFont
-        clickButton.addActionListener(this)     // Handle any clicks
-        add(clickButton)
+
+        Map = JLabel("----------------")
+        Map.horizontalAlignment = SwingConstants.CENTER
+        Map.bounds = Rectangle(50, 50, 300, 100)
+        Map.font = baseFont
+        add(Map)
+
+        UI = TextField("-----------------------------------")
+        UI.bounds = Rectangle(400, 50, 550, 200)
+        UI.foreground = Color.WHITE
+        UI.background = Color.BLACK
+        UI.font = baseFont
+        add(UI)
+
+
+        move_Forward = JButton("Click Me!")
+        move_Forward.bounds = Rectangle(50,200,500,100)
+        move_Forward.font = baseFont
+        move_Forward.addActionListener(this)     // Handle any clicks
+        add(move_Forward)
+
+        move_Backward = JButton("Click Me!")
+        move_Backward.bounds = Rectangle(50,200,500,100)
+        move_Backward.font = baseFont
+        move_Backward.addActionListener(this)     // Handle any clicks
+        add(move_Backward)
+
+        move_Left = JButton("Click Me!")
+        move_Left.bounds = Rectangle(50,200,500,100)
+        move_Left.font = baseFont
+        move_Left.addActionListener(this)     // Handle any clicks
+        add(move_Left)
+
+        move_Right = JButton("Click Me!")
+        move_Right.bounds = Rectangle(50,200,500,100)
+        move_Right.font = baseFont
+        move_Right.addActionListener(this)     // Handle any clicks
+        add(move_Right)
+
+        yes = JButton("Click Me!")
+        yes.bounds = Rectangle(50,200,500,100)
+        yes.font = baseFont
+        yes.addActionListener(this)     // Handle any clicks
+        add(yes)
+
+        No = JButton("Click Me!")
+        No.bounds = Rectangle(50,200,500,100)
+        No.font = baseFont
+        No.addActionListener(this)     // Handle any clicks
+        add(No)
     }
 
 
@@ -116,14 +159,14 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * of the application model
      */
     fun updateView() {
-        if (app.clicks == app.MAX_CLICKS) {
-            clicksLabel.text = "Max clicks reached!"
-            clickButton.isEnabled = false
-        }
-        else {
-            clicksLabel.text = "You clicked ${app.clicks} times"
-            clickButton.isEnabled = true
-        }
+      //  if (app.clicks == app.MAX_CLICKS) {
+      //      clicksLabel.text = "Max clicks reached!"
+      //      clickButton.isEnabled = false
+      //  }
+      //  else {
+      //      clicksLabel.text = "You clicked ${app.clicks} times"
+      //      clickButton.isEnabled = true
+      //  }
     }
 
     /**
@@ -133,10 +176,10 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
-            clickButton -> {
-                app.updateClickCount()
-                updateView()
-            }
+           /// clickButton -> {
+           ///     app.updateClickCount()
+           ///     updateView()
+           /// }
         }
     }
 

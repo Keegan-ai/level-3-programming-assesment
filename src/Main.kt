@@ -2,9 +2,9 @@
  * =====================================================================
  * Programming Project for NCEA Level 3, Standard 91906
  * ---------------------------------------------------------------------
- * Project Name:   PROJECT NAME HERE
- * Project Author: PROJECT AUTHOR HERE
- * GitHub Repo:    GITHUB REPO URL HERE
+ * Project Name:   Space Terror
+ * Project Author: Keegan Gous
+ * GitHub Repo:    https://github.com/Keegan-ai/level-3-programming-assesment
  * ---------------------------------------------------------------------
  * Notes:
  * PROJECT NOTES HERE
@@ -58,7 +58,12 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
 
     // Fields to hold the UI elements
     private lateinit var clicksLabel: JLabel
-    private lateinit var clickButton: JButton
+    private lateinit var move_Forward: JButton
+    private lateinit var move_Backward: JButton
+    private lateinit var move_Left: JButton
+    private lateinit var move_Right: JButton
+    private lateinit var yes: JButton
+    private lateinit var No: JButton
 
     /**
      * Configure the UI and display it

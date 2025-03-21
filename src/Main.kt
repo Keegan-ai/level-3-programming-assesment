@@ -102,13 +102,13 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
 
 
 
-        Map = JLabel("----------------")
+        Map = JLabel("Map")
         Map.horizontalAlignment = SwingConstants.CENTER
         Map.bounds = Rectangle(50, 50, 300, 100)
         Map.font = baseFont
         add(Map)
 
-        UI = TextField("-----------------------------------")
+        UI = TextField("......................................................")
         UI.bounds = Rectangle(400, 50, 550, 200)
         UI.foreground = Color.WHITE
         UI.background = Color.BLACK
@@ -116,38 +116,38 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         add(UI)
 
 
-        move_Forward = JButton("Click Me!")
-        move_Forward.bounds = Rectangle(50,200,500,100)
+        move_Forward = JButton("^")
+        move_Forward.bounds = Rectangle(495,265,75,75)
         move_Forward.font = baseFont
         move_Forward.addActionListener(this)     // Handle any clicks
         add(move_Forward)
 
-        move_Backward = JButton("Click Me!")
-        move_Backward.bounds = Rectangle(50,200,500,100)
+        move_Backward = JButton("v")
+        move_Backward.bounds = Rectangle(495,415,75,75)
         move_Backward.font = baseFont
         move_Backward.addActionListener(this)     // Handle any clicks
         add(move_Backward)
 
-        move_Left = JButton("Click Me!")
-        move_Left.bounds = Rectangle(50,200,500,100)
+        move_Left = JButton("<")
+        move_Left.bounds = Rectangle(420,340,75,74)
         move_Left.font = baseFont
         move_Left.addActionListener(this)     // Handle any clicks
         add(move_Left)
 
-        move_Right = JButton("Click Me!")
-        move_Right.bounds = Rectangle(50,200,500,100)
+        move_Right = JButton(">")
+        move_Right.bounds = Rectangle(570,340,75,75)
         move_Right.font = baseFont
         move_Right.addActionListener(this)     // Handle any clicks
         add(move_Right)
 
-        yes = JButton("Click Me!")
-        yes.bounds = Rectangle(50,200,500,100)
+        yes = JButton("Yes")
+        yes.bounds = Rectangle(750,315,100,100)
         yes.font = baseFont
         yes.addActionListener(this)     // Handle any clicks
         add(yes)
 
-        No = JButton("Click Me!")
-        No.bounds = Rectangle(50,200,500,100)
+        No = JButton("No")
+        No.bounds = Rectangle(875,315,100,100)
         No.font = baseFont
         No.addActionListener(this)     // Handle any clicks
         add(No)

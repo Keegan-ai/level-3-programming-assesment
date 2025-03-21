@@ -57,10 +57,23 @@ class App() {
 class MainWindow(val app: App) : JFrame(), ActionListener {
 
     // Fields to hold the UI elements
-    private lateinit var clicksLabel: JLabel
+//private lateinit var Escape_Pod: JLabel
+//private lateinit var Entrance: JLabel
+//private lateinit var Section_1: JLabel
+//private lateinit var Section_2: JLabel
+//private lateinit var Garbage_Disposel: JLabel
+//private lateinit var Control_centre: JLabel
+//private lateinit var Cabin_quarters: JLabel
+//private lateinit var Kitchen: JLabel
+//private lateinit var Corrider: JLabel
+//private lateinit var Maintenace_room: JLabel
+    private lateinit var lacation_1: JLabel
+    private lateinit var lacation_2: JLabel
+    private lateinit var lacation_3: JLabel
+    private lateinit var lacation_4: JLabel
+    private lateinit var lacation_5: JLabel
     private lateinit var Map: JLabel
     private lateinit var UI: TextField
-    private lateinit var clickButton: JButton
     private lateinit var move_Forward: JButton
     private lateinit var move_Backward: JButton
     private lateinit var move_Left: JButton

@@ -35,17 +35,6 @@ fun main() {
  * stored, plus any application logic functions
  */
 class App() {
-    // Constants defining any key values
-   // val MAX_CLICKS = 10
-
-    // Data fields
-   // var clicks = 0
-
-    // Application logic functions
-    fun updateClickCount() {
-       // clicks++
-       // if (clicks > MAX_CLICKS) clicks = MAX_CLICKS
-    }
 }
 
 
@@ -67,13 +56,13 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
 //private lateinit var Kitchen: JLabel
 //private lateinit var Corrider: JLabel
 //private lateinit var Maintenace_room: JLabel
-    private lateinit var lacation_1: JLabel
-    private lateinit var lacation_2: JLabel
-    private lateinit var lacation_3: JLabel
-    private lateinit var lacation_4: JLabel
-    private lateinit var lacation_5: JLabel
+    private lateinit var location_1: JLabel
+    private lateinit var North_Route: JLabel
+    private lateinit var South_Route: JLabel
+    private lateinit var West_Route: JLabel
+    private lateinit var East_Route: JLabel
     private lateinit var Map: JLabel
-    private lateinit var UI: TextField
+    private lateinit var UI: JTextArea
     private lateinit var move_Forward: JButton
     private lateinit var move_Backward: JButton
     private lateinit var move_Left: JButton
@@ -113,20 +102,45 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     private fun addControls() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 36)
 
+        location_1 = JLabel("Room")
+        location_1.bounds = Rectangle(135, 195, 100, 100)
+        location_1.font = baseFont
+        add(location_1)
 
+        North_Route = JLabel("North")
+        North_Route.bounds = Rectangle(135, 105, 100, 100)
+        North_Route.font = baseFont
+        add(North_Route)
+
+        South_Route = JLabel("South")
+        South_Route.bounds = Rectangle(135, 290, 100, 100)
+        South_Route.font = baseFont
+        add(South_Route)
+
+        East_Route = JLabel("East")
+        East_Route.bounds = Rectangle(10, 195, 100, 100)
+        East_Route.font = baseFont
+        add(East_Route)
+
+        West_Route = JLabel("West")
+        West_Route.bounds = Rectangle(260, 195, 100, 100)
+        West_Route.font = baseFont
+        add(West_Route)
 
         Map = JLabel("Map")
         Map.horizontalAlignment = SwingConstants.CENTER
-        Map.bounds = Rectangle(50, 50, 300, 100)
+        Map.bounds = Rectangle(35, 25, 300, 100)
         Map.font = baseFont
         add(Map)
 
-        UI = TextField("......................................................")
-        UI.bounds = Rectangle(400, 50, 550, 200)
+        UI = JTextArea("Welcome to the game of Space Terror:Press Yes to continue ")
+        UI.bounds = Rectangle(400, 50, 580, 200)
         UI.foreground = Color.WHITE
         UI.background = Color.BLACK
-        UI.font = baseFont
+        UI.font = Font(Font.SANS_SERIF, Font.PLAIN, 14)
+        UI.lineWrap = true
         add(UI)
+
 
 
         move_Forward = JButton("^")
@@ -172,14 +186,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * of the application model
      */
     fun updateView() {
-      //  if (app.clicks == app.MAX_CLICKS) {
-      //      clicksLabel.text = "Max clicks reached!"
-      //      clickButton.isEnabled = false
-      //  }
-      //  else {
-      //      clicksLabel.text = "You clicked ${app.clicks} times"
-      //      clickButton.isEnabled = true
-      //  }
+
     }
 
     /**
@@ -189,11 +196,28 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
-           /// clickButton -> {
-           ///     app.updateClickCount()
-           ///     updateView()
-           /// }
+             yes -> {
+            UI.text = "You Journey Begins on a space station orbiting earth." +
+                    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
+                    "One Day a explosion happened and the next thing you knew you woke up in the crew quarters. " +
+                    " .........................................................................................................." +
+                    ":Press Yes if you wish to look around or No to stand up and move to the next area."
+            UI.text = "After looking around for awhile the only thing you can see are bunks bed fallen over and One of your crew mates lying on the floor." +
+                   "Press Yes to continue or No to keep looking "
+             updateView()
+            }
+            move_Forward -> {
+
+            }
         }
+    }
+
+
+    fun Handles_Map(){
+
+    }
+    fun Handles_Dialogue(){
+
     }
 
 }

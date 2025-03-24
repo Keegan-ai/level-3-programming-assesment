@@ -35,9 +35,33 @@ fun main() {
  * stored, plus any application logic functions
  */
 class App() {
+    //var currentDialogueIndex = 0
+
+    //// Dialogue sequence
+    //val dialogues = listOf(
+    //    "You Journey Begins on a space station orbiting earth." +
+    //    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
+    //    "One Day a explosion happened and the next thing you knew you woke up in the crew quarters." +
+    //    " .........................................................................................................." +
+    //    ":Press Yes if you wish to look around or No to stand up and move to the next area.",
+    //    "After looking around for a while, the only thing you can see are bunk beds fallen over and one of your crew mates lying on the floor." +
+    //    "Press Yes to continue or No to keep looking.",
+
+    //)
+
+  // fun getNextDialogue(): String {
+  //     return if (currentDialogueIndex < dialogues.size) {
+  //         dialogues[currentDialogueIndex++]
+  //     } else {
+  //         "There is nothing more to say."
+  //     }
+  // }
+
+    class Locations(var name: String, var script: String){
+      var  Cabin_quarters()
+
+    }
 }
-
-
 /**
  * Main UI window (view)
  * Defines the UI and responds to events
@@ -144,37 +168,37 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
 
 
         move_Forward = JButton("^")
-        move_Forward.bounds = Rectangle(495,265,75,75)
+        move_Forward.bounds = Rectangle(495, 265, 75, 75)
         move_Forward.font = baseFont
         move_Forward.addActionListener(this)     // Handle any clicks
         add(move_Forward)
 
         move_Backward = JButton("v")
-        move_Backward.bounds = Rectangle(495,415,75,75)
+        move_Backward.bounds = Rectangle(495, 415, 75, 75)
         move_Backward.font = baseFont
         move_Backward.addActionListener(this)     // Handle any clicks
         add(move_Backward)
 
         move_Left = JButton("<")
-        move_Left.bounds = Rectangle(420,340,75,74)
+        move_Left.bounds = Rectangle(420, 340, 75, 74)
         move_Left.font = baseFont
         move_Left.addActionListener(this)     // Handle any clicks
         add(move_Left)
 
         move_Right = JButton(">")
-        move_Right.bounds = Rectangle(570,340,75,75)
+        move_Right.bounds = Rectangle(570, 340, 75, 75)
         move_Right.font = baseFont
         move_Right.addActionListener(this)     // Handle any clicks
         add(move_Right)
 
         yes = JButton("Yes")
-        yes.bounds = Rectangle(750,315,100,100)
+        yes.bounds = Rectangle(750, 315, 100, 100)
         yes.font = baseFont
         yes.addActionListener(this)     // Handle any clicks
         add(yes)
 
         No = JButton("No")
-        No.bounds = Rectangle(875,315,100,100)
+        No.bounds = Rectangle(875, 315, 100, 100)
         No.font = baseFont
         No.addActionListener(this)     // Handle any clicks
         add(No)
@@ -189,6 +213,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
 
     }
 
+
     /**
      * Handle any UI events (e.g. button clicks)
      * Usually this involves updating the application model
@@ -196,16 +221,16 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
-             yes -> {
-            UI.text = "You Journey Begins on a space station orbiting earth." +
-                    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
-                    "One Day a explosion happened and the next thing you knew you woke up in the crew quarters. " +
-                    " .........................................................................................................." +
-                    ":Press Yes if you wish to look around or No to stand up and move to the next area."
-            UI.text = "After looking around for awhile the only thing you can see are bunks bed fallen over and One of your crew mates lying on the floor." +
-                   "Press Yes to continue or No to keep looking "
-             updateView()
+            yes -> {
+               // dialog_Handler() // Fetch next dialogue
+
             }
+
+            No -> {
+                //UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."
+
+            }
+
             move_Forward -> {
 
             }
@@ -213,12 +238,14 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     }
 
 
-    fun Handles_Map(){
+
+    fun map_Handler() {
 
     }
-    fun Handles_Dialogue(){
 
+    fun dialog_Handler() {
+        //UI.text = app.getNextDialogue()
     }
-
 }
+
 

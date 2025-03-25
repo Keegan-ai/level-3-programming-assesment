@@ -11,7 +11,9 @@
  * =====================================================================
  */
 
-
+//    "You Journey Begins on a space station orbiting earth." +
+//    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
+//    "One Day a explosion happened and the next thing you knew you woke up in the crew quarters." +
 
 import com.formdev.flatlaf.FlatDarkLaf
 import java.awt.*
@@ -35,33 +37,10 @@ fun main() {
  * stored, plus any application logic functions
  */
 class App() {
-    //var currentDialogueIndex = 0
 
-    //// Dialogue sequence
-    //val dialogues = listOf(
-    //    "You Journey Begins on a space station orbiting earth." +
-    //    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
-    //    "One Day a explosion happened and the next thing you knew you woke up in the crew quarters." +
-    //    " .........................................................................................................." +
-    //    ":Press Yes if you wish to look around or No to stand up and move to the next area.",
-    //    "After looking around for a while, the only thing you can see are bunk beds fallen over and one of your crew mates lying on the floor." +
-    //    "Press Yes to continue or No to keep looking.",
 
-    //)
-
-  // fun getNextDialogue(): String {
-  //     return if (currentDialogueIndex < dialogues.size) {
-  //         dialogues[currentDialogueIndex++]
-  //     } else {
-  //         "There is nothing more to say."
-  //     }
-  // }
-
-    class Locations(var name: String, var script: String){
-      var  Cabin_quarters()
-
-    }
 }
+
 /**
  * Main UI window (view)
  * Defines the UI and responds to events
@@ -223,21 +202,20 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         when (e?.source) {
             yes -> {
                // dialog_Handler() // Fetch next dialogue
-
             }
-
             No -> {
                 //UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."
-
             }
-
             move_Forward -> {
 
             }
         }
     }
 
+     class Locations(var name: String, var script: String){
 
+
+    }
 
     fun map_Handler() {
 

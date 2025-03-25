@@ -32,13 +32,64 @@ fun main() {
 
 
 /**
+ * Room class to represent different locations
+ */
+class Room(val name: String, val description: String) {
+    val connections = mutableMapOf<String, Room>()
+
+    fun connect(direction: String, room: Room) {
+        connections[direction] = room
+    }
+}
+
+/**
  * The application class (model)
  * This is the place where any application data should be
  * stored, plus any application logic functions
  */
 class App() {
+    val rooms = mutableMapOf<String, Room>()
+    var currentRoom: Room? = null
 
+    init {
+        setupRooms()
+    }
 
+    private fun setupRooms() {
+        val crewQuarters = Room("Crew Quarters", "You begin to wake up in the cabin quarters confused on what happen because last thing you knew is were sleeping. " +
+                "As you start to come to your senses a alarm beeps saying Oxygen supply low advised to wear a suit until repa..zzz.zz..z are done." +
+                "After hearing that you begin to put on a suit ")
+        val hallway = Room("Hallway", "You enter the hallway and see a sign saying Maintenance Room south and Ahead is the Kitchen ")
+        val controlRoom = Room("Control Room", "You enter the main control room. " +
+                "You look around and see that the control room is dead, its systems offline. A few terminals sputter weakly, looping a broken distress signal: '...Mayday... impact detected... system failure...'  .")
+        val kitchen = Room("Kitchen", "You enter the kitchen.You see that utensils floating around due to the station losing power.")
+        val Escape_Pod = Room("Escape Pods","As You enter the escape pod room. You see that all escape pods are gone." +
+                "You begin to panic think there isn't one here for you but luckily you find one unscathed. ")
+        val Entrance = Room("Entrance"," You wonder where you are and you suddenly see a sign saying Escape Pods North and Section 1 South." )
+        val Section_1 =Room("Section 1","You enter section 1 which is on the west most side of the space station." +
+                " You look at the sign to see where you want to go next and the sign says South is where the Garbage Disposel and east is To go to the Control Room  ")
+        val Section_2 = Room("Section 2","You enter section 2 which is on the east most side of the space station." +
+                "You look at the sign to see where you want to go next and the sign says South is where the Kitchen is and West is to go to the Control Room.")
+        val Garbage_Disposel = Room("Garbage Disposel","As you enter the Garbage Disposel room you look around and see trash lying everywhere which is not suprising." +
+                "You see that there is a door going east towards the Hallway")
+        val Maintenace_room = Room( "Maintenace Room","You enter maintenance room and see that it is in disarray. " +
+                "Loose wires hang from the ceiling, sparking occasionally. " +
+                "Toolboxes have toppled over, their contents scattered across the floor." +
+                " A thick smell of burnt circuits lingers in the air")
+        crewQuarters.connect("North", hallway)
+        hallway.connect("South", crewQuarters)
+        hallway.connect("East", controlRoom)
+        hallway.connect("West", kitchen)
+        controlRoom.connect("West", hallway)
+        kitchen.connect("East", hallway)
+
+        rooms["Crew Quarters"] = crewQuarters
+        rooms["Hallway"] = hallway
+        rooms["Control Room"] = controlRoom
+        rooms["Kitchen"] = kitchen
+
+        currentRoom = crewQuarters
+    }
 }
 
 /**
@@ -202,6 +253,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         when (e?.source) {
             yes -> {
                // dialog_Handler() // Fetch next dialogue
+                app.currentRoom
             }
             No -> {
                 //UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."

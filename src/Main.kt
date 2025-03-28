@@ -76,6 +76,8 @@ class App() {
                 "Loose wires hang from the ceiling, sparking occasionally. " +
                 "Toolboxes have toppled over, their contents scattered across the floor." +
                 " A thick smell of burnt circuits lingers in the air")
+
+
         crewQuarters.connect("North", hallway)
         hallway.connect("South", crewQuarters)
         hallway.connect("East", controlRoom)
@@ -83,10 +85,18 @@ class App() {
         controlRoom.connect("West", hallway)
         kitchen.connect("East", hallway)
 
+
         rooms["Crew Quarters"] = crewQuarters
         rooms["Hallway"] = hallway
         rooms["Control Room"] = controlRoom
         rooms["Kitchen"] = kitchen
+        rooms["Escape Pod"] = Escape_Pod
+        rooms["Entrance"] = Entrance
+        rooms["Section 1"] = Section_1
+        rooms["Section 2"] = Section_2
+        rooms["Garbage Disposel"] = Garbage_Disposel
+        rooms["Maintenace Room"] = Maintenace_room
+
 
         currentRoom = crewQuarters
     }
@@ -240,7 +250,6 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * of the application model
      */
     fun updateView() {
-
     }
 
 
@@ -253,29 +262,40 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         when (e?.source) {
             yes -> {
                // dialog_Handler() // Fetch next dialogue
-                app.currentRoom
+
             }
             No -> {
                 //UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."
             }
             move_Forward -> {
+                   app.currentRoom!!.connections["North"]
+                app.rooms
+            }
 
+            move_Backward -> {
+                    app.currentRoom!!.connections["South"]
+                app.rooms
+            }
+
+            move_Left -> {
+                app.currentRoom!!.connections["East"]
+                app.rooms
+
+            }
+
+            move_Right -> {
+                app.currentRoom!!.connections["West"]
+                app.rooms
             }
         }
     }
 
-     class Locations(var name: String, var script: String){
-
-
-    }
 
     fun map_Handler() {
 
+
     }
 
-    fun dialog_Handler() {
-        //UI.text = app.getNextDialogue()
-    }
 }
 
 

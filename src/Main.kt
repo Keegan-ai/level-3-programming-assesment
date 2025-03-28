@@ -51,19 +51,21 @@ class App() {
     val rooms = mutableMapOf<String, Room>()
     var currentRoom: Room? = null
 
+    var gameStarted = false  // Flag to check if the game has started
+
     init {
         setupRooms()
     }
 
     private fun setupRooms() {
         val crewQuarters = Room("Crew Quarters", "You begin to wake up in the cabin quarters confused on what happen because last thing you knew is were sleeping. " +
-                "As you start to come to your senses a alarm beeps saying Oxygen supply low advised to wear a suit until repa..zzz.zz..z are done." +
+                "As you start to come to your         senses a alarm beeps saying Oxygen supply low advised to wear a suit until repa..zzz.zz..z are done." +
                 "After hearing that you begin to put on a suit ")
         val hallway = Room("Hallway", "You enter the hallway and see a sign saying Maintenance Room south and Ahead is the Kitchen ")
         val controlRoom = Room("Control Room", "You enter the main control room. " +
                 "You look around and see that the control room is dead, its systems offline. A few terminals sputter weakly, looping a broken distress signal: '...Mayday... impact detected... system failure...'  .")
         val kitchen = Room("Kitchen", "You enter the kitchen.You see that utensils floating around due to the station losing power.")
-        val Escape_Pod = Room("Escape Pods","As You enter the escape pod room. You see that all escape pods are gone." +
+        val Escape_Pod = Room("Escape Pods","As You enter the     escape pod room. You see that all escape pods are gone." +
                 "You begin to panic think there isn't one here for you but luckily you find one unscathed. ")
         val Entrance = Room("Entrance"," You wonder where you are and you suddenly see a sign saying Escape Pods North and Section 1 South." )
         val Section_1 =Room("Section 1","You enter section 1 which is on the west most side of the space station." +
@@ -78,12 +80,28 @@ class App() {
                 " A thick smell of burnt circuits lingers in the air")
 
 
-        crewQuarters.connect("North", hallway)
-        hallway.connect("South", crewQuarters)
-        hallway.connect("East", controlRoom)
-        hallway.connect("West", kitchen)
-        controlRoom.connect("West", hallway)
-        kitchen.connect("East", hallway)
+        crewQuarters.connect("West", Entrance)
+        crewQuarters.connect("South", Section_2)
+        Entrance.connect("North", Escape_Pod)
+        Entrance.connect("South", Section_1)
+        Section_1.connect("North", Escape_Pod)
+        Section_1.connect("East", controlRoom)
+        Section_1.connect("South", Garbage_Disposel)
+        Garbage_Disposel.connect("North", Section_1)
+        Garbage_Disposel.connect("East", hallway)
+        hallway.connect("West", Garbage_Disposel)
+        hallway.connect("South", Maintenace_room)
+        hallway.connect("East", kitchen)
+        Maintenace_room.connect("North", hallway)
+        kitchen.connect("West", hallway)
+        kitchen.connect("North", Section_2)
+        Section_2.connect("South", kitchen)
+        Section_2.connect("West", controlRoom)
+        Section_2.connect("North", crewQuarters)
+        controlRoom.connect("West", Section_1)
+        controlRoom.connect("East", Section_2)
+        Escape_Pod.connect("South", Entrance)
+
 
 
         rooms["Crew Quarters"] = crewQuarters
@@ -250,6 +268,14 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * of the application model
      */
     fun updateView() {
+        if (!app.gameStarted) {
+            // If the game hasn't started yet, show the welcome message
+            UI.text = "Welcome to Space Terror: Press Yes to continue"
+        } else {
+            // If the game has started, show the current room's description
+            val currentRoomDescription = app.currentRoom?.description ?: "Unknown location"
+            UI.text = "You are in the ${app.currentRoom?.name}. $currentRoomDescription"
+        }
     }
 
 
@@ -260,42 +286,75 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
+            // Handling the 'Yes' button click:
             yes -> {
-               // dialog_Handler() // Fetch next dialogue
+                if (!app.gameStarted) {
+                    // Set the game to started
+                    app.gameStarted = true
 
+                    // Set the starting room to 'Crew Quarters' (or whatever your starting room is)
+                    app.currentRoom = app.rooms["Crew Quarters"]
+
+                    // Update the UI to show the room's description
+                    updateView()
+                } else {
+                    // Assuming you want to trigger a new action, like moving or showing dialogue
+                    UI.text = "You decide to continue on your journey."
+                }
             }
+
+            // Handling the 'No' button click:
             No -> {
-                //UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."
+                // For now, just a placeholder text
+                UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."
+
             }
+
+            // Handling the 'Move Forward' (North) button click:
             move_Forward -> {
-                   app.currentRoom!!.connections["North"]
-                app.rooms
+                val nextRoom = app.currentRoom?.connections?.get("North")
+                if (nextRoom != null) {
+                    app.currentRoom = nextRoom
+                    UI.text = "You moved north to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
+                } else {
+                    UI.text = "You can't move north. There's no room in that direction."
+                }
             }
 
+            // Handling the 'Move Backward' (South) button click:
             move_Backward -> {
-                    app.currentRoom!!.connections["South"]
-                app.rooms
+                val nextRoom = app.currentRoom?.connections?.get("South")
+                if (nextRoom != null) {
+                    app.currentRoom = nextRoom
+                    UI.text = "You moved south to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
+                } else {
+                    UI.text = "You can't move south. There's no room in that direction."
+                }
             }
 
+            // Handling the 'Move Left' (East) button click:
             move_Left -> {
-                app.currentRoom!!.connections["East"]
-                app.rooms
-
+                val nextRoom = app.currentRoom?.connections?.get("East")
+                if (nextRoom != null) {
+                    app.currentRoom = nextRoom
+                    UI.text = "You moved east to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
+                } else {
+                    UI.text = "You can't move east. There's no room in that direction."
+                }
             }
 
+            // Handling the 'Move Right' (West) button click:
             move_Right -> {
-                app.currentRoom!!.connections["West"]
-                app.rooms
+                val nextRoom = app.currentRoom?.connections?.get("West")
+                if (nextRoom != null) {
+                    app.currentRoom = nextRoom
+                    UI.text = "You moved west to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
+                } else {
+                    UI.text = "You can't move west. There's no room in that direction."
+                }
             }
         }
     }
-
-
-    fun map_Handler() {
-
-
-    }
-
 }
 
 

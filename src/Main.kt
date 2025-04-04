@@ -31,9 +31,7 @@ fun main() {
 }
 
 
-/**
- * Room class to represent different locations
- */
+//Room class helps connect the rooms and makes it possible to create and put descriptions in them
 class Room(val name: String, val description: String) {
     val connections = mutableMapOf<String, Room>()
 
@@ -51,38 +49,42 @@ class App() {
     val rooms = mutableMapOf<String, Room>()
     var currentRoom: Room? = null
 
-    var gameStarted = false  // Flag to check if the game has started
+    var gameStarted: Boolean = false  // Flag to check if the game has started
 
     init {
         setupRooms()
     }
 
+    // This holds the info of a certain room.
     private fun setupRooms() {
-        val crewQuarters = Room("Crew Quarters", "You begin to wake up in the cabin quarters confused on what happen because last thing you knew is were sleeping. " +
-                "As you start to come to your         senses a alarm beeps saying Oxygen supply low advised to wear a suit until repa..zzz.zz..z are done." +
+        val crewQuarters = Room("Crew Quarters", "You begin to wake up in the cabin quarters confused  on what happen because last thing you knew is were sleeping. " +
+                "As you start to come to your senses a alarm  beeps saying Oxygen supply low advised to wear a suit until repa..zzz.zz..z are done." +
                 "After hearing that you begin to put on a suit ")
-        val hallway = Room("Hallway", "You enter the hallway and see a sign saying Maintenance Room south and Ahead is the Kitchen ")
+        val hallway = Room("Hallway", "You enter the hallway and see a sign saying Maintenance     Room south and Ahead is the Kitchen ")
         val controlRoom = Room("Control Room", "You enter the main control room. " +
-                "You look around and see that the control room is dead, its systems offline. A few terminals sputter weakly, looping a broken distress signal: '...Mayday... impact detected... system failure...'  .")
-        val kitchen = Room("Kitchen", "You enter the kitchen.You see that utensils floating around due to the station losing power.")
-        val Escape_Pod = Room("Escape Pods","As You enter the     escape pod room. You see that all escape pods are gone." +
-                "You begin to panic think there isn't one here for you but luckily you find one unscathed. ")
-        val Entrance = Room("Entrance"," You wonder where you are and you suddenly see a sign saying Escape Pods North and Section 1 South." )
-        val Section_1 =Room("Section 1","You enter section 1 which is on the west most side of the space station." +
-                " You look at the sign to see where you want to go next and the sign says South is where the Garbage Disposel and east is To go to the Control Room  ")
-        val Section_2 = Room("Section 2","You enter section 2 which is on the east most side of the space station." +
-                "You look at the sign to see where you want to go next and the sign says South is where the Kitchen is and West is to go to the Control Room.")
+                "You look around and see that the control room is dead, its systems offline. A few terminals sputter weakly,          looping a broken distress signal: '...Mayday... impact detected... system failure...'  .")
+        val kitchen = Room("Kitchen", "You enter the kitchen.The kitchen is a mess. Cabinets hang open, their contents spilled across the floor. " +
+                "A broken tray of food floats near the ceiling, evidence of the sudden impact. " +
+                "The power is out, leaving the room cold and lifeless, the   scent of stale rations lingering in the air.")
+        val Escape_Pod = Room("Escape Pods","As You enter the escape pod room. You see that all    escape pods are gone." +
+                "You begin to panic think there isn't one here for you but luckily you  find one unscathed. ")
+        val Entrance = Room("Entrance"," You wonder where you are and you suddenly see a sign    saying Escape Pods North and Section 1 South." )
+        val Section_1 =Room("Section 1","You enter section 1 which is on the west most side of the    space station." +
+                " You look at the sign to see where you want to go next and the sign says     South is where the Garbage Disposel and east is To go to the Control Room  ")
+        val Section_2 = Room("Section 2","You enter section 2 which is on the east most side of the   space station." +
+                "You look at the sign to see where you want to go next and the sign says     South is where the Kitchen is and West is to go to the Control Room.")
         val Garbage_Disposel = Room("Garbage Disposel","As you enter the Garbage Disposel room you look around and see trash lying everywhere which is not suprising." +
-                "You see that there is a door going east towards the Hallway")
+                "You see that there is a       door going east towards the Hallway")
         val Maintenace_room = Room( "Maintenace Room","You enter maintenance room and see that it is in disarray. " +
                 "Loose wires hang from the ceiling, sparking occasionally. " +
-                "Toolboxes have toppled over, their contents scattered across the floor." +
-                " A thick smell of burnt circuits lingers in the air")
+                "Toolboxes have           toppled over, their contents scattered across the floor." +
+                " A thick smell of burnt circuits          lingers in the air")
 
-
+        // Cotrols where the player can go and where he can go while also serving as connection points
         crewQuarters.connect("West", Entrance)
         crewQuarters.connect("South", Section_2)
         Entrance.connect("North", Escape_Pod)
+        Entrance.connect("East", crewQuarters)
         Entrance.connect("South", Section_1)
         Section_1.connect("North", Escape_Pod)
         Section_1.connect("East", controlRoom)
@@ -103,7 +105,7 @@ class App() {
         Escape_Pod.connect("South", Entrance)
 
 
-
+        // Creates the room
         rooms["Crew Quarters"] = crewQuarters
         rooms["Hallway"] = hallway
         rooms["Control Room"] = controlRoom
@@ -215,7 +217,8 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         Map.font = baseFont
         add(Map)
 
-        UI = JTextArea("Welcome to the game of Space Terror:Press Yes to continue ")
+        UI = JTextArea("Welcome to the game of Space Terror:" +
+                "Press Yes to continue ")
         UI.bounds = Rectangle(400, 50, 580, 200)
         UI.foreground = Color.WHITE
         UI.background = Color.BLACK
@@ -260,6 +263,13 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         No.font = baseFont
         No.addActionListener(this)     // Handle any clicks
         add(No)
+
+        //Disables the buttons until i decide when to re-enable them
+        move_Forward.isEnabled = false
+        move_Backward.isEnabled = false
+        move_Left.isEnabled = false
+        move_Right.isEnabled = false
+
     }
 
 
@@ -270,11 +280,12 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     fun updateView() {
         if (!app.gameStarted) {
             // If the game hasn't started yet, show the welcome message
-            UI.text = "Welcome to Space Terror: Press Yes to continue"
+            UI.text = "Welcome to Space Terror: Press No to read the rules or Press Yes to Skip the rules"
+
         } else {
             // If the game has started, show the current room's description
             val currentRoomDescription = app.currentRoom?.description ?: "Unknown location"
-            UI.text = "You are in the ${app.currentRoom?.name}. $currentRoomDescription"
+            UI.text = "${app.currentRoom?.name}. $currentRoomDescription"
         }
     }
 
@@ -291,6 +302,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 if (!app.gameStarted) {
                     // Set the game to started
                     app.gameStarted = true
+                    enableMovementButtons()  // Enable movement buttons
 
                     // Set the starting room to 'Crew Quarters' (or whatever your starting room is)
                     app.currentRoom = app.rooms["Crew Quarters"]
@@ -298,16 +310,23 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     // Update the UI to show the room's description
                     updateView()
                 } else {
-                    // Assuming you want to trigger a new action, like moving or showing dialogue
+                    // Assuming i want to trigger a new action, like moving or showing dialogue
                     UI.text = "You decide to continue on your journey."
                 }
             }
 
             // Handling the 'No' button click:
             No -> {
-                // For now, just a placeholder text
-                UI.text = "You decide to stay and look around more. The eerie silence of the station surrounds you."
-
+                if (!app.gameStarted) {
+                    // Show game rules before the game starts
+                    UI.text = "Space Terror: The goal of the game is to try and escape a space which unknowingly had a impact of a unknown object.\n" +
+                            "You must move between rooms and try to find something to help you escape..\n" +
+                            "Also Thx for trying out my game :).\n" +
+                            "Press 'Yes' to start the game."
+                } else {
+                    // If the game has already started, handle other "No" logic here
+                    UI.text = "You decide to stay put for now."
+                }
             }
 
             // Handling the 'Move Forward' (North) button click:
@@ -317,7 +336,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     app.currentRoom = nextRoom
                     UI.text = "You moved north to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
                 } else {
-                    UI.text = "You can't move north. There's no room in that direction."
+                    UI.text = "You bumped into a wall. Try another direction."
                 }
             }
 
@@ -328,7 +347,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     app.currentRoom = nextRoom
                     UI.text = "You moved south to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
                 } else {
-                    UI.text = "You can't move south. There's no room in that direction."
+                    UI.text = "You bumped into a wall.Try another direction."
                 }
             }
 
@@ -339,7 +358,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     app.currentRoom = nextRoom
                     UI.text = "You moved east to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
                 } else {
-                    UI.text = "You can't move east. There's no room in that direction."
+                    UI.text = "You bumped into a wall.Try another direction."
                 }
             }
 
@@ -350,10 +369,18 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     app.currentRoom = nextRoom
                     UI.text = "You moved west to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
                 } else {
-                    UI.text = "You can't move west. There's no room in that direction."
+                    UI.text = "You bumped into a wall.Try another direction."
                 }
             }
         }
+    }
+
+    //This makes it so that when my yes button is clicked it re-enables the rest of the buttons again
+    fun enableMovementButtons() {
+        move_Forward.isEnabled = true
+        move_Backward.isEnabled = true
+        move_Left.isEnabled = true
+        move_Right.isEnabled = true
     }
 }
 

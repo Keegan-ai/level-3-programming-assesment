@@ -390,6 +390,8 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     fun Escape_function(){
 
     }
+
+    //jidjfdkf
 }
 
 

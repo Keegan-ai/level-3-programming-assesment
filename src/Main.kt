@@ -382,6 +382,14 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Left.isEnabled = true
         move_Right.isEnabled = true
     }
+
+    fun item_pickup(){
+
+    }
+
+    fun Escape_function(){
+
+    }
 }
 
 

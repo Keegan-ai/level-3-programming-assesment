@@ -34,6 +34,7 @@ fun main() {
 //Room class helps connect the rooms and makes it possible to create and put descriptions in them
 class Room(val name: String, val description: String) {
     val connections = mutableMapOf<String, Room>()
+    var visited = false
 
     fun connect(direction: String, room: Room) {
         connections[direction] = room

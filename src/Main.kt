@@ -87,7 +87,7 @@ class App() {
         Entrance.connect("North", Escape_Pod)
         Entrance.connect("East", crewQuarters)
         Entrance.connect("South", Section_1)
-        Section_1.connect("North", Escape_Pod)
+        Section_1.connect("North", Entrance)
         Section_1.connect("East", controlRoom)
         Section_1.connect("South", Garbage_Disposel)
         Garbage_Disposel.connect("North", Section_1)
@@ -335,9 +335,13 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 val nextRoom = app.currentRoom?.connections?.get("North")
                 if (nextRoom != null) {
                     app.currentRoom = nextRoom
-                    UI.text = "You moved north to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
-                } else {
-                    UI.text = "You bumped into a wall. Try another direction."
+                    if (app.currentRoom?.visited == true) {
+                        UI.text =
+                            "You moved north to ${app.currentRoom?.name}. You've been here before because you remember that ${app.currentRoom?.description}. "
+                    }
+                    else {
+                        UI.text = "You can't go that way."
+                    }
                 }
             }
 
@@ -346,9 +350,11 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 val nextRoom = app.currentRoom?.connections?.get("South")
                 if (nextRoom != null) {
                     app.currentRoom = nextRoom
-                    UI.text = "You moved south to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
+                    if (app.currentRoom?.visited == true) {
+                        UI.text = "You moved north to ${app.currentRoom?.name}. You've been here before because you remember that ${app.currentRoom?.description}. "
+                    }
                 } else {
-                    UI.text = "You bumped into a wall.Try another direction."
+                    UI.text = "You can't go that way."
                 }
             }
 
@@ -357,20 +363,25 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 val nextRoom = app.currentRoom?.connections?.get("East")
                 if (nextRoom != null) {
                     app.currentRoom = nextRoom
-                    UI.text = "You moved east to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
-                } else {
-                    UI.text = "You bumped into a wall.Try another direction."
+                    if (app.currentRoom?.visited == true) {
+                        UI.text = "You moved north to ${app.currentRoom?.name}. You've been here before because you remember that ${app.currentRoom?.description}. "
+                    }
+                }
+                else {
+                    UI.text = "You can't go that way."
                 }
             }
 
             // Handling the 'Move Right' (West) button click:
-            move_Right -> {
+            move_Right ->{
                 val nextRoom = app.currentRoom?.connections?.get("West")
                 if (nextRoom != null) {
                     app.currentRoom = nextRoom
-                    UI.text = "You moved west to ${app.currentRoom?.name}. ${app.currentRoom?.description}"
+                    if (app.currentRoom?.visited == true) {
+                        UI.text = "You moved north to ${app.currentRoom?.name}. You've been here before because you remember that ${app.currentRoom?.description}. "
+                    }  
                 } else {
-                    UI.text = "You bumped into a wall.Try another direction."
+                    UI.text = "You can't go that way."
                 }
             }
         }

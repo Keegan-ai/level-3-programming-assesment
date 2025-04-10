@@ -296,17 +296,40 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * of the application model
      */
     fun updateView() {
+        // If the game hasn't started yet, show the welcome message
         if (!app.gameStarted) {
-            UI.text = "Welcome to Space Terror: Press No to read the rules or Press Yes to skip the rules"
+            UI.text = "Welcome to Space Terror: Press No to read the rules or Press Yes to skip the rules and begin the game"
         } else {
+            // Get the current room the player is in
             val currentRoom = app.currentRoom
+            // If no description exists for the room, use "Unknown location" as a fallback
             val desc = currentRoom?.description ?: "Unknown location"
-            UI.text = "${currentRoom?.name}. $desc"
 
-            // Check if we're in the Maintenance Room and haven't found the tool yet
-            if (currentRoom?.name == "Maintenace Room" && !app.foundTool) {
-                handleToolPickup() // Ask player to pick up the tool
+            // Determine if it's the player's first visit to the room
+            val firstVisit = !(currentRoom?.visited ?: true)
+            // Mark the room as visited
+            currentRoom?.visited = true
+
+            // Generate the base description depending on whether it's the first visit
+            val baseDescription = if (firstVisit) {
+                // If it's the first visit, show the room name and description
+                "${currentRoom?.name}. $desc"
+            } else {
+                // If it's not the first visit, mention remembering the first visit
+                "${currentRoom?.name}. You remember your first visit here.$desc"
             }
+
+            // Check if we're in the Maintenance Room and the player hasn't found the tool yet
+            val extraPrompt = if (currentRoom?.name == "Maintenance Room" && !app.foundTool) {
+                // If conditions are met, show a prompt about picking up the tools
+                "\n\nYou see tools scattered around. Do you want to pick them up? Press Yes or No."
+            } else {
+                // Otherwise, no extra prompt
+                ""
+            }
+
+
+            UI.text = baseDescription + extraPrompt
         }
     }
 
@@ -317,7 +340,6 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
-            // Handling the 'Yes' button click:
             yes -> {
                 if (!app.gameStarted) {
                     app.gameStarted = true
@@ -325,7 +347,6 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     app.currentRoom = app.rooms["Crew Quarters"]
                     updateView()
                 } else {
-                    // Check if player is in Maintenance Room and hasn't picked up the tool yet
                     if (app.currentRoom?.name == "Maintenace Room" && !app.foundTool) {
                         app.foundTool = true
                         app.inventory.add("Tools")
@@ -336,15 +357,12 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 }
             }
 
-            // Handling the 'No' button click:
             No -> {
                 if (!app.gameStarted) {
-                    UI.text = "Space Terror: The goal of the game is to try and escape a space which unknowingly had a impact of a unknown object.\n" +
-                            "You must move between rooms and try to find something to help you escape..\n" +
-                            "Also Thx for trying out my game :).\n" +
-                            "Press 'Yes' to start the game."
+                    UI.text = "Space Terror: The goal of the game is to try and escape a space station after a mysterious impact.\n" +
+                            "Move between rooms and search for clues or tools to escape.\n" +
+                            "Thanks for playing! Press 'Yes' to begin."
                 } else {
-                    // If in Maintenance Room and say no to tool
                     if (app.currentRoom?.name == "Maintenace Room" && !app.foundTool) {
                         UI.text = "You chose not to search for tools right now."
                     } else {
@@ -353,76 +371,52 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 }
             }
 
-            //All the movement buttons now check if the player has gone in the room again it will flag check it
-
-            // Handling the 'Move Forward' (North) button click:
             move_Forward -> {
-            val nextRoom = app.currentRoom?.connections?.get("North")
-            if (nextRoom != null) {
-                app.currentRoom = nextRoom
-                val firstVisit = !nextRoom.visited
-                nextRoom.visited = true
-                UI.text = if (firstVisit) {
-                    "You moved north to ${nextRoom.name}. ${nextRoom.description}"
-                } else {
-                    "You moved north to ${nextRoom.name}. You remember your previous visit here. ${nextRoom.description}"
-                }
-            } else {
-                UI.text = "You can't go that way."
+                moveTo("North")
             }
-        }
 
-            // Handling the 'Move Backward' (South) button click:
-            move_Backward ->  {
-            val nextRoom = app.currentRoom?.connections?.get("South")
-            if (nextRoom != null) {
-                app.currentRoom = nextRoom
-                val firstVisit = !nextRoom.visited
-                nextRoom.visited = true
-                UI.text = if (firstVisit) {
-                    "You moved north to ${nextRoom.name}. ${nextRoom.description}"
-                } else {
-                    "You moved north to ${nextRoom.name}. You remember your previous visit here. ${nextRoom.description}"
-                }
-            } else {
-                UI.text = "You can't go that way."
+            move_Backward -> {
+                moveTo("South")
             }
-        }
 
-            // Handling the 'Move Left' (East) button click:
             move_Left -> {
-                val nextRoom = app.currentRoom?.connections?.get("East")
-                if (nextRoom != null) {
-                    app.currentRoom = nextRoom
-                    val firstVisit = !nextRoom.visited
-                    nextRoom.visited = true
-                    UI.text = if (firstVisit) {
-                        "You moved north to ${nextRoom.name}. ${nextRoom.description}"
-                    } else {
-                        "You moved north to ${nextRoom.name}. You remember your previous visit here. ${nextRoom.description}"
-                    }
-                } else {
-                    UI.text = "You can't go that way."
-                }
+                moveTo("East")
             }
 
-            // Handling the 'Move Right' (West) button click:
             move_Right -> {
-                val nextRoom = app.currentRoom?.connections?.get("West")
-                if (nextRoom != null) {
-                    app.currentRoom = nextRoom
-                    val firstVisit = !nextRoom.visited
-                    nextRoom.visited = true
-                    UI.text = if (firstVisit) {
-                        "You moved north to ${nextRoom.name}. ${nextRoom.description}"
-                    } else {
-                        "You moved north to ${nextRoom.name}. You remember your previous visit here. ${nextRoom.description}"
-                    }
-                } else {
-                    UI.text = "You can't go that way."
-                }
+                moveTo("West")
             }
         }
+    }
+
+    private fun moveTo(direction: String) {
+        // Check if the room in the given direction exists in the current room's connections
+        app.currentRoom?.connections?.get(direction)?.let { room ->
+            // Check if this is the player's first visit to the room
+            val firstVisit = !room.visited
+            // Mark the room as visited
+            room.visited = true
+            // Set the current room to the new room
+            app.currentRoom = room
+
+            // Create a description based on whether it's the player's first visit
+            val description = if (firstVisit) {
+                // If it's the first visit, include the room's description
+                "You moved $direction to ${room.name}.${room.description.trim()}"
+            } else {
+                // If it's not the first visit, note that the player remembers the room
+                "You moved $direction to ${room.name}. You walk in the same room and remember.${room.description.trim()}"
+            }
+
+            // Update the UI with the description
+            UI.text = description
+        } ?: run {
+            // If the direction doesn't lead to a valid room, show an error message
+            UI.text = "You can't go that way."
+        }
+
+        // Enable the movement buttons again
+        enableMovementButtons()
     }
     //
     //This makes it so that when my yes button is clicked it re-enables the rest of the buttons again
@@ -431,14 +425,6 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Backward.isEnabled = true
         move_Left.isEnabled = true
         move_Right.isEnabled = true
-    }
-
-    fun item_pickup(){
-
-    }
-
-    fun Escape_function(){
-
     }
 
 }

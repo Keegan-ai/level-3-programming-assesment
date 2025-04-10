@@ -1,15 +1,15 @@
 /**
- * =====================================================================
- * Programming Project for NCEA Level 3, Standard 91906
- * ---------------------------------------------------------------------
- * Project Name:   Space Terror
- * Project Author: Keegan Gous
- * GitHub Repo:    https://github.com/Keegan-ai/level-3-programming-assesment
- * ---------------------------------------------------------------------
- * Notes:
- * PROJECT NOTES HERE
- * =====================================================================
- */
+* =====================================================================
+* Programming Project for NCEA Level 3, Standard 91906
+* ---------------------------------------------------------------------
+* Project Name:   Space Terror
+* Project Author: Keegan Gous
+* GitHub Repo:    https://github.com/Keegan-ai/level-3-programming-assesment
+* ---------------------------------------------------------------------
+* Notes:
+* PROJECT NOTES HERE
+* =====================================================================
+*/
 
 //    "You Journey Begins on a space station orbiting earth." +
 //    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
@@ -20,23 +20,20 @@ import java.awt.*
 import java.awt.event.*
 import javax.swing.*
 
-
 /**
  * Launch the application
  */
 fun main() {
-    FlatDarkLaf.setup()     // Flat, dark look-and-feel
+    FlatDarkLaf.setup()     // Set up a flat, dark look-and-feel
     val app = App()         // Create the app model
     MainWindow(app)         // Create and show the UI, using the app model
 }
 
 
-//Room class helps connect the rooms and makes it possible to create and put descriptions in them
+// Room class helps connect rooms and sets descriptions (unchanged)
 class Room(val name: String, val description: String) {
     val connections = mutableMapOf<String, Room>()
-    //Checks if the player has visited the room the 2nd time
-
-    var visited = false  // Default to false (not visited)
+    var visited = false  // Flag to check if the room has been visited before
 
     fun connect(direction: String, room: Room) {
         connections[direction] = room
@@ -45,50 +42,59 @@ class Room(val name: String, val description: String) {
 
 /**
  * The application class (model)
- * This is the place where any application data should be
- * stored, plus any application logic functions
+ * Stores game data and holds game logic functions.
  */
 class App() {
-    var foundTool = false // This tracks if the player has already found the tool
-    val rooms = mutableMapOf<String, Room>()// Keeps track of the rooms
-    var currentRoom: Room? = null//Doesn't know where the player is yet, but it will update once the player is in a room
-    var gameStarted: Boolean = false  // Flag to check if the game has started\
+    var foundTool = false // Tracks if the player has already found the tool
+    val rooms = mutableMapOf<String, Room>() // Keeps track of the rooms
+    var currentRoom: Room? = null // Current room; updated as player moves
+    var gameStarted: Boolean = false  // Flag to check if the game has started
     val inventory = mutableListOf<String>()  // Holds items the player picks up
 
-
-
     init {
-        setupRooms()
+        setupRooms()  // Build and connect all rooms
     }
 
-    // This holds the info of a certain room.
+    // Sets up the rooms and connects them
     private fun setupRooms() {
-        val crewQuarters = Room("Crew Quarters", "You begin to wake up in the cabin quarters confused on what happen    because last thing you knew is were sleeping. " +
-                "As you start to come to your senses a      alarm beeps saying Oxygen supply low advised to wear a suit until repa..zzz.zz..z are       done." +
-                " After hearing that you begin to put on a suit ")
-        val hallway = Room("Hallway", "You enter the hallway and see a sign saying Maintenance     Room south and Ahead is the Kitchen ")
-        val controlRoom = Room("Control Room", "You enter the main control room. " +
-                "You look around and see that the control room is dead, its systems offline. A few terminals sputter weakly,          looping a broken distress signal: '...Mayday... impact detected... system failure...'  .")
-        val kitchen = Room("Kitchen", "You enter the kitchen.The kitchen is a mess. Cabinets hang open, their contents spilled across the floor. " +
-                "A broken tray of food floats near the ceiling, evidence of the sudden impact. " +
-                "The power is out, leaving the room cold and lifeless, the   scent of stale rations lingering in the air.")
-        val Escape_Pod = Room("Escape Pods","As You enter the escape pod room. You see that all    escape pods are gone." +
-                "You begin to panic thinking there isn't one here for you but luckily you find one unscathed. But the wires you see that the control panel is broken." +
-                "You tell   yourself that you need to find something to fix it...................................................................." +
-                "Do you wish to repair: Press yes to repair or No ")
-        val Entrance = Room("Entrance"," You wonder where you are and you suddenly see a sign  saying Escape Pods North and Section 1 South." )
-        val Section_1 =Room("Section 1","You enter section 1 which is on the west most side of the    space station." +
-                " You look at the sign to see where you want to go next and the sign says     South is where the Garbage Disposel and east is To go to the Control Room  ")
-        val Section_2 = Room("Section 2","You enter section 2 which is on the east most side of the   space station." +
-                "You look at the sign to see where you want to go next and the sign says     South is where the Kitchen is and West is to go to the Control Room.")
-        val Garbage_Disposel = Room("Garbage Disposel","As you enter the Garbage Disposel room you look around and see trash lying everywhere which is not suprising." +
-                "You see that there is a       door going east towards the Hallway")
-        val Maintenace_room = Room( "Maintenace Room","You enter maintenance room and see that it is in disarray. " +
-                "Loose wires hang from the ceiling, sparking occasionally. " +
-                "Toolboxes have           toppled over, their contents scattered across the floor." +
-                " A thick smell of burnt circuits          lingers in the air: Do you wish to search the room")
+        val crewQuarters = Room("Crew Quarters",
+            "You begin to wake up in the cabin quarters confused on what happened because last thing you knew is you were sleeping. " +
+                    "As you start to come to your senses, an alarm beeps: Oxygen supply low advised to wear a suit until repairs are done. " +
+                    "After hearing that, you begin to put on a suit.")
+        val hallway = Room("Hallway",
+            "You enter the hallway and see a sign saying: Maintenance Room south and Ahead is the Kitchen.")
+        val controlRoom = Room("Control Room",
+            "You enter the main control room. You look around and see that the control room is dead, its systems offline. " +
+                    "A few terminals sputter weakly, looping a broken distress signal: '...Mayday... impact detected... system failure...'.")
+        val kitchen = Room("Kitchen",
+            "You enter the kitchen. The kitchen is a mess. Cabinets hang open, their contents spilled across the floor. " +
+                    "A broken tray of food floats near the ceiling, evidence of the sudden impact. " +
+                    "The power is out, leaving the room cold and lifeless, the scent of stale rations lingering in the air.")
+        // The Escape Pod room will serve as the ending if the player has the Tools.
+        val Escape_Pod = Room("Escape Pods",
+            "As you enter the escape pod room, you see that all escape pods are gone. " +
+                    "You begin to panic, thinking there isn't one here for you, but luckily you find one unscathed. " +
+                    "However, the wires you see indicate that the control panel is broken. " +
+                    "You tell yourself that if you have the tool repair kit, you might fix the ship.",
+        )
+        val Entrance = Room("Entrance",
+            "You wonder where you are and suddenly see a sign saying: Escape Pods North and Section 1 South.")
+        val Section_1 = Room("Section 1",
+            "You enter section 1 which is on the west-most side of the space station. " +
+                    "A sign indicates: South is where the Garbage Disposal is and east is to go to the Control Room.")
+        val Section_2 = Room("Section 2",
+            "You enter section 2 which is on the east-most side of the space station. " +
+                    "A sign indicates: South is where the Kitchen is and West is to go to the Control Room.")
+        val Garbage_Disposel = Room("Garbage Disposel",
+            "As you enter the Garbage Disposel room, you look around and see trash lying everywhere which is not surprising. " +
+                    "You see that there is a door going east towards the Hallway.")
+        val Maintenace_room = Room("Maintenace Room",
+            "You enter the maintenance room and see that it is in disarray. " +
+                    "Loose wires hang from the ceiling, sparking occasionally. " +
+                    "Toolboxes have toppled over, their contents scattered across the floor. " +
+                    "A thick smell of burnt circuits lingers in the air: Do you wish to search the room?")
 
-        // Cotrols where the player can go and where he can go while also serving as connection points
+        // Connect the rooms
         crewQuarters.connect("West", Entrance)
         crewQuarters.connect("South", Section_2)
         Entrance.connect("North", Escape_Pod)
@@ -112,8 +118,7 @@ class App() {
         controlRoom.connect("East", Section_2)
         Escape_Pod.connect("South", Entrance)
 
-
-        // Creates the room
+        // Save rooms in the map
         rooms["Crew Quarters"] = crewQuarters
         rooms["Hallway"] = hallway
         rooms["Control Room"] = controlRoom
@@ -125,39 +130,26 @@ class App() {
         rooms["Garbage Disposel"] = Garbage_Disposel
         rooms["Maintenace Room"] = Maintenace_room
 
-
-        currentRoom = crewQuarters
+        currentRoom = crewQuarters // Set starting room
     }
 }
 
 /**
  * Main UI window (view)
- * Defines the UI and responds to events
- * The app model should be passwd as an argument
+ * Defines the UI and responds to events.
+ * The app model is passed as an argument.
  */
 class MainWindow(val app: App) : JFrame(), ActionListener {
 
-    // This function handles picking up the tool repair kit in the Maintenance Room
+    // This function handles picking up the tool repair kit in the Maintenance Room.
     fun handleToolPickup() {
         if (!app.foundTool && app.currentRoom?.name == "Maintenace Room") {
-            // Shows a message asking the player if they want to search for the tool
+            // Ask the player if they want to pick up the tool repair kit.
             UI.text = "You see tools scattered around. Do you want to pick them up? Press Yes or No."
         }
     }
 
-
-
-    // Fields to hold the UI elements
-//private lateinit var Escape_Pod: JLabel
-//private lateinit var Entrance: JLabel
-//private lateinit var Section_1: JLabel
-//private lateinit var Section_2: JLabel
-//private lateinit var Garbage_Disposel: JLabel
-//private lateinit var Control_centre: JLabel
-//private lateinit var Cabin_quarters: JLabel
-//private lateinit var Kitchen: JLabel
-//private lateinit var Corrider: JLabel
-//private lateinit var Maintenace_room: JLabel
+    // UI element fields.
     private lateinit var location_1: JLabel
     private lateinit var North_Route: JLabel
     private lateinit var South_Route: JLabel
@@ -173,20 +165,20 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     private lateinit var No: JButton
 
     /**
-     * Configure the UI and display it
+     * Configure the UI and display it.
      */
     init {
-        configureWindow()               // Configure the window
-        addControls()                   // Build the UI
+        configureWindow() // Setup window basics.
+        addControls()     // Create the UI controls.
 
-        setLocationRelativeTo(null)     // Centre the window
-        isVisible = true                // Make it visible
+        setLocationRelativeTo(null)  // Centre the window.
+        isVisible = true             // Make it visible.
 
-        updateView()                    // Initialise the UI
+        updateView() // Initialize the UI.
     }
 
     /**
-     * Configure the main window
+     * Configure the main window.
      */
     private fun configureWindow() {
         title = "Kotlin Swing GUI Demo"
@@ -194,12 +186,11 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         isResizable = false
         layout = null
-
         pack()
     }
 
     /**
-     * Populate the UI with UI controls
+     * Populate the UI with controls.
      */
     private fun addControls() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 36)
@@ -235,8 +226,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         Map.font = baseFont
         add(Map)
 
-        UI = JTextArea("Welcome to the game of Space Terror:" +
-                "Press Yes to continue ")
+        UI = JTextArea("Welcome to the game of Space Terror: Press Yes to continue")
         UI.bounds = Rectangle(400, 50, 580, 200)
         UI.foreground = Color.WHITE
         UI.background = Color.BLACK
@@ -244,109 +234,107 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         UI.lineWrap = true
         add(UI)
 
-
-
         move_Forward = JButton("^")
         move_Forward.bounds = Rectangle(495, 265, 75, 75)
         move_Forward.font = baseFont
-        move_Forward.addActionListener(this)     // Handle any clicks
+        move_Forward.addActionListener(this)  // Handle movement clicks.
         add(move_Forward)
 
         move_Backward = JButton("v")
         move_Backward.bounds = Rectangle(495, 415, 75, 75)
         move_Backward.font = baseFont
-        move_Backward.addActionListener(this)     // Handle any clicks
+        move_Backward.addActionListener(this)
         add(move_Backward)
 
         move_Left = JButton("<")
         move_Left.bounds = Rectangle(420, 340, 75, 74)
         move_Left.font = baseFont
-        move_Left.addActionListener(this)     // Handle any clicks
+        move_Left.addActionListener(this)
         add(move_Left)
 
         move_Right = JButton(">")
         move_Right.bounds = Rectangle(570, 340, 75, 75)
         move_Right.font = baseFont
-        move_Right.addActionListener(this)     // Handle any clicks
+        move_Right.addActionListener(this)
         add(move_Right)
 
         yes = JButton("Yes")
         yes.bounds = Rectangle(750, 315, 100, 100)
         yes.font = baseFont
-        yes.addActionListener(this)     // Handle any clicks
+        yes.addActionListener(this)  // Handle Yes clicks.
         add(yes)
 
         No = JButton("No")
         No.bounds = Rectangle(875, 315, 100, 100)
         No.font = baseFont
-        No.addActionListener(this)     // Handle any clicks
+        No.addActionListener(this)  // Handle No clicks.
         add(No)
 
-        //Disables the buttons until i decide when to re-enable them
+        // Disable movement buttons until the game starts.
         move_Forward.isEnabled = false
         move_Backward.isEnabled = false
         move_Left.isEnabled = false
         move_Right.isEnabled = false
-
     }
 
-
     /**
-     * Update the UI controls based on the current state
-     * of the application model
+     * Update the UI based on the game state.
+     * This function displays the current room's description.
+     * It also checks if the game-ending condition is met.
      */
     fun updateView() {
-        // If the game hasn't started yet, show the welcome message
         if (!app.gameStarted) {
             UI.text = "Welcome to Space Terror: Press No to read the rules or Press Yes to skip the rules and begin the game"
         } else {
-            // Get the current room the player is in
             val currentRoom = app.currentRoom
-            // If no description exists for the room, use "Unknown location" as a fallback
             val desc = currentRoom?.description ?: "Unknown location"
+            val baseDescription = "${currentRoom?.name}. $desc"
 
-            // Determine if it's the player's first visit to the room
-            val firstVisit = !(currentRoom?.visited ?: true)
-            // Mark the room as visited
-            currentRoom?.visited = true
 
-            // Generate the base description depending on whether it's the first visit
-            val baseDescription = if (firstVisit) {
-                // If it's the first visit, show the room name and description
-                "${currentRoom?.name}. $desc"
-            } else {
-                // If it's not the first visit, mention remembering the first visit
-                "${currentRoom?.name}. You remember your first visit here.$desc"
-            }
-
-            // Check if we're in the Maintenance Room and the player hasn't found the tool yet
-            val extraPrompt = if (currentRoom?.name == "Maintenance Room" && !app.foundTool) {
-                // If conditions are met, show a prompt about picking up the tools
+            // If in the Maintenance Room and the tool hasn't been found yet, show extra prompt.
+            val extraPrompt = if (currentRoom?.name == "Maintenace Room" && !app.foundTool) {
                 "\n\nYou see tools scattered around. Do you want to pick them up? Press Yes or No."
             } else {
-                // Otherwise, no extra prompt
                 ""
             }
-
-
             UI.text = baseDescription + extraPrompt
+
+            // Game-ending condition: If the player is in "Escape Pods" and has the tool repair kit.
+            if (currentRoom?.name == "Escape Pod" && app.inventory.contains("Tools")) {
+                endGame()  // End the game with congratulations.
+                return
+            }
+
         }
     }
 
     /**
-     * Handle any UI events (e.g. button clicks)
-     * Usually this involves updating the application model
-     * then refreshing the UI view
+     * Ends the game by congratulating the player.
+     * Disables movement buttons to prevent further actions.
+     */
+    private fun endGame() {
+        UI.text = "Congratulations! You used the Tool Repair Kit to repair the ship and escape. You survived"
+        move_Forward.isEnabled = false
+        move_Backward.isEnabled = false
+        move_Left.isEnabled = false
+        move_Right.isEnabled = false
+    }
+
+    /**
+     * Handle UI events from button clicks.
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
+            // Handling Yes button clicks.
             yes -> {
                 if (!app.gameStarted) {
+                    // Start the game.
                     app.gameStarted = true
                     enableMovementButtons()
                     app.currentRoom = app.rooms["Crew Quarters"]
                     updateView()
                 } else {
+                    // If in Maintenance Room and tool not found, pick up tool.
                     if (app.currentRoom?.name == "Maintenace Room" && !app.foundTool) {
                         app.foundTool = true
                         app.inventory.add("Tools")
@@ -357,6 +345,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 }
             }
 
+            // Handling No button clicks.
             No -> {
                 if (!app.gameStarted) {
                     UI.text = "Space Terror: The goal of the game is to try and escape a space station after a mysterious impact.\n" +
@@ -371,55 +360,40 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 }
             }
 
-            move_Forward -> {
-                moveTo("North")
-            }
-
-            move_Backward -> {
-                moveTo("South")
-            }
-
-            move_Left -> {
-                moveTo("East")
-            }
-
-            move_Right -> {
-                moveTo("West")
-            }
+            // Movement button clicks.
+            move_Forward -> { moveTo("North") }
+            move_Backward -> { moveTo("South") }
+            move_Left -> { moveTo("East") }
+            move_Right -> { moveTo("West") }
         }
     }
 
+    /**
+     * Moves the player in a given direction.
+     * Updates the current room and displays its description.
+     * Re-enables movement buttons after moving.
+     */
     private fun moveTo(direction: String) {
-        // Check if the room in the given direction exists in the current room's connections
         app.currentRoom?.connections?.get(direction)?.let { room ->
-            // Check if this is the player's first visit to the room
             val firstVisit = !room.visited
-            // Mark the room as visited
             room.visited = true
-            // Set the current room to the new room
             app.currentRoom = room
 
-            // Create a description based on whether it's the player's first visit
             val description = if (firstVisit) {
-                // If it's the first visit, include the room's description
                 "You moved $direction to ${room.name}.${room.description.trim()}"
             } else {
-                // If it's not the first visit, note that the player remembers the room
-                "You moved $direction to ${room.name}. You walk in the same room and remember.${room.description.trim()}"
+                "You moved $direction to ${room.name}. You remember your first visit here.\n${room.description.trim()}"
             }
-
-            // Update the UI with the description
             UI.text = description
         } ?: run {
-            // If the direction doesn't lead to a valid room, show an error message
             UI.text = "You can't go that way."
         }
-
-        // Enable the movement buttons again
         enableMovementButtons()
     }
-    //
-    //This makes it so that when my yes button is clicked it re-enables the rest of the buttons again
+
+    /**
+     * Re-enables the movement buttons.
+     */
     fun enableMovementButtons() {
         move_Forward.isEnabled = true
         move_Backward.isEnabled = true

@@ -194,6 +194,12 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     private fun addControls() {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 36)
+        var Arrow_Up = ImageIcon("src/Images/Arrow Up.png").image
+        var Arrow_Down = ImageIcon("src/Images/Arrow Down.png").image
+        var Arrow_Left = ImageIcon("src/Images/Arrow Left.png").image
+        var Arrow_Right = ImageIcon("src/Images/Arrow Right.png").image
+        var Yes = ImageIcon("src/Images/Yes.png").image
+        var No = ImageIcon("src/Images/No.png").image
 
         location_1 = JLabel("Room")
         location_1.bounds = Rectangle(135, 195, 100, 100)
@@ -234,21 +240,28 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         UI.lineWrap = true
         add(UI)
 
-        move_Forward = JButton("^")
+        move_Forward = JButton()
         move_Forward.bounds = Rectangle(495, 265, 75, 75)
         move_Forward.font = baseFont
+        move_Forward.background = Color.darkGray
+        Arrow_Up = Arrow_Up.getScaledInstance(75,75,Image.SCALE_SMOOTH)
+        move_Forward.icon = ImageIcon(Arrow_Up)
         move_Forward.addActionListener(this)  // Handle movement clicks.
         add(move_Forward)
 
         move_Backward = JButton("v")
         move_Backward.bounds = Rectangle(495, 415, 75, 75)
         move_Backward.font = baseFont
+        Arrow_Down = Arrow_Down.getScaledInstance(75,75,Image.SCALE_SMOOTH)
+        move_Backward.icon = ImageIcon(Arrow_Down)
         move_Backward.addActionListener(this)
         add(move_Backward)
 
         move_Left = JButton("<")
         move_Left.bounds = Rectangle(420, 340, 75, 74)
         move_Left.font = baseFont
+        Arrow_Up = Arrow_Up.getScaledInstance(75,75,Image.SCALE_SMOOTH)
+        move_Forward.icon = ImageIcon(Arrow_Up)
         move_Left.addActionListener(this)
         add(move_Left)
 
@@ -313,8 +326,8 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * Disables movement buttons to prevent further actions.
      */
     private fun endGame() {
-        UI.text = "Congratulations! You used the Tools to repair the Escape pod and Escaped.\nYou survived" +
-                "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        UI.font = Font(Font.SANS_SERIF, Font.ITALIC, 34)
+        UI.text = "Congratulations! You used the Tools to repair the Escape pod and\nEscaped.\nYou survived"
         move_Forward.isEnabled = false
         move_Backward.isEnabled = false
         move_Left.isEnabled = false

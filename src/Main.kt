@@ -162,7 +162,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
     private lateinit var move_Left: JButton
     private lateinit var move_Right: JButton
     private lateinit var yes: JButton
-    private lateinit var No: JButton
+    private lateinit var no: JButton
 
     /**
      * Configure the UI and display it.
@@ -243,45 +243,62 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Forward = JButton()
         move_Forward.bounds = Rectangle(495, 265, 75, 75)
         move_Forward.font = baseFont
-        move_Forward.background = Color.darkGray
+        move_Forward.background = Color(0,0,0,0)
+        move_Forward.border = BorderFactory.createEmptyBorder()
         Arrow_Up = Arrow_Up.getScaledInstance(75,75,Image.SCALE_SMOOTH)
         move_Forward.icon = ImageIcon(Arrow_Up)
         move_Forward.addActionListener(this)  // Handle movement clicks.
         add(move_Forward)
 
-        move_Backward = JButton("v")
+        move_Backward = JButton()
         move_Backward.bounds = Rectangle(495, 415, 75, 75)
         move_Backward.font = baseFont
+        move_Backward.background = Color(0,0,0,0)
+        move_Backward.border = BorderFactory.createEmptyBorder()
         Arrow_Down = Arrow_Down.getScaledInstance(75,75,Image.SCALE_SMOOTH)
         move_Backward.icon = ImageIcon(Arrow_Down)
         move_Backward.addActionListener(this)
         add(move_Backward)
 
-        move_Left = JButton("<")
+        move_Left = JButton()
         move_Left.bounds = Rectangle(420, 340, 75, 74)
         move_Left.font = baseFont
-        Arrow_Up = Arrow_Up.getScaledInstance(75,75,Image.SCALE_SMOOTH)
-        move_Forward.icon = ImageIcon(Arrow_Up)
+        move_Left.background = Color(0,0,0,0)
+        move_Left.border = BorderFactory.createEmptyBorder()
+        Arrow_Left = Arrow_Left.getScaledInstance(75,75,Image.SCALE_SMOOTH)
+        move_Left.icon = ImageIcon(Arrow_Left)
         move_Left.addActionListener(this)
         add(move_Left)
 
-        move_Right = JButton(">")
+        move_Right = JButton()
         move_Right.bounds = Rectangle(570, 340, 75, 75)
         move_Right.font = baseFont
+        move_Right.background = Color(0,0,0,0)
+        move_Right.border = BorderFactory.createEmptyBorder()
+        Arrow_Right = Arrow_Right.getScaledInstance(75,75,Image.SCALE_SMOOTH)
+        move_Right.icon = ImageIcon(Arrow_Right)
         move_Right.addActionListener(this)
         add(move_Right)
 
-        yes = JButton("Yes")
+        yes = JButton()
         yes.bounds = Rectangle(750, 315, 100, 100)
         yes.font = baseFont
+        yes.background = Color(0,0,0,0)
+        yes.border = BorderFactory.createEmptyBorder()
+        Yes = Yes.getScaledInstance(100,100,Image.SCALE_SMOOTH)
+        yes.icon = ImageIcon(Yes)
         yes.addActionListener(this)  // Handle Yes clicks.
         add(yes)
 
-        No = JButton("No")
-        No.bounds = Rectangle(875, 315, 100, 100)
-        No.font = baseFont
-        No.addActionListener(this)  // Handle No clicks.
-        add(No)
+        no = JButton()
+        no.bounds = Rectangle(875, 315, 100, 100)
+        no.font = baseFont
+        no.background = Color(0,0,0,0)
+        no.border = BorderFactory.createEmptyBorder()
+        No = No.getScaledInstance(100,100,Image.SCALE_SMOOTH)
+        no.icon = ImageIcon(No)
+        no.addActionListener(this)  // Handle No clicks.
+        add(no)
 
         // Disable movement buttons until the game starts.
         move_Forward.isEnabled = false
@@ -332,7 +349,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Backward.isEnabled = false
         move_Left.isEnabled = false
         move_Right.isEnabled = false
-        No.isEnabled = false
+        no.isEnabled = false
         yes.isEnabled = false
     }
 
@@ -363,7 +380,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
             }
 
             // Handling No button clicks.
-            No -> {
+            no -> {
                 if (!app.gameStarted) {
                     UI.text = "Space Terror:\n The goal of the game is to try and escape a space station after a mysterious impact." +
                             "Move between rooms and search for clues or tools to escape.\n" +

@@ -113,15 +113,15 @@ Program flexibility and maintainability is aided by good program structure:
 - [ ] Conditions, branching, loops and functions are used **effectively**
 - [ ] Procedures are **efficient** (minimal iterations, etc.)
 - [ ] **Minimal duplication of code** (instead using loops, or having multiple calls to a single function)
-- [ ] OOP classes are **well-chosen and logical**, with a clearly defined purpose
+- [x] OOP classes are **well-chosen and logical**, with a clearly defined purpose
 - [ ] Functions are **well-chosen and logical**, with a clearly defined purpose
 - [ ] The classes and functions chosen represent a **logical decomposition** of the task
 
 ### Game GUI
 
 The game GUI:
-- [ ] Is **well laid out** with care and attention paid to details
-- [ ] Gives a **good uer experience (UX)**
+- [x] Is **well laid out** with care and attention paid to details
+- [x] Gives a **good uer experience (UX)**
 
 ### Program Documentation
 

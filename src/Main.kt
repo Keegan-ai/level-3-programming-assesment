@@ -11,9 +11,9 @@
 * =====================================================================
 */
 
-//    "You Journey Begins on a space station orbiting earth." +
-//    "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
-//    "One Day a explosion happened and the next thing you knew you woke up in the crew quarters." +
+// "You Journey Begins on a space station orbiting earth." +
+// "You are part of a crew called the SS Galactic where you've been assigned to test various chemicals which were too dangerous to use on earth." +
+// "One Day a explosion happened and the next thing you knew you woke up in the crew quarters." +
 
 import com.formdev.flatlaf.FlatDarkLaf
 import java.awt.*
@@ -141,7 +141,7 @@ class App() {
  */
 class MainWindow(val app: App) : JFrame(), ActionListener {
 
-    // This function handles picking up the tool repair kit in the Maintenance Room.
+    //This function handles picking up the tool repair kit in the Maintenance Room.
     fun handleToolPickup() {
         if (!app.foundTool && app.currentRoom?.name == "Maintenace Room") {
             // Ask the player if they want to pick up the tool repair kit.
@@ -301,10 +301,10 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         add(no)
 
         // Disable movement buttons until the game starts.
-        move_Forward.isEnabled = false
-        move_Backward.isEnabled = false
-        move_Left.isEnabled = false
-        move_Right.isEnabled = false
+       move_Forward.isEnabled = false
+       move_Backward.isEnabled = false
+       move_Left.isEnabled = false
+       move_Right.isEnabled = false
     }
 
     /**
@@ -321,15 +321,16 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
             val baseDescription = "${currentRoom?.name}. $desc"
 
 
-            // If in the Maintenance Room and the tool hasn't been found yet, show extra prompt.
-            val extraPrompt = if (currentRoom?.name == "Maintenace Room" && !app.foundTool) {
+            //If in the Maintenance Room and the tool hasn't been found yet, show extra prompt.
+            val extraPrompt = if (currentRoom?.name == "Maintenace Room" && !app.foundTool)
+            {
                 "\n\nYou see tools scattered around. Do you want to pick them up? Press Yes or No."
             } else {
                 ""
             }
             UI.text = baseDescription + extraPrompt
 
-            // Game-ending condition: If the player is in "Escape Pods" and has the tool repair kit.
+            //Game-ending condition: If the player is in "Escape Pods" and has the tool repair kit.
             if (currentRoom?.name == "Escape Pod" && app.inventory.contains("Tools")) {
                 endGame()  // End the game with congratulations.
                 return
@@ -367,7 +368,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                     app.currentRoom = app.rooms["Crew Quarters"]
                     updateView()
                 } else {
-                    // If in Maintenance Room and tool not found, pick up tool.
+                    //If in Maintenance Room and tool not found, pick up tool.
                     if (app.currentRoom?.name == "Maintenace Room" && !app.foundTool) {
                         app.foundTool = true
                         app.inventory.add("Tools")

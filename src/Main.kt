@@ -385,6 +385,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
                 if (!app.gameStarted) {
                     UI.text = "Space Terror:\n The goal of the game is to try and escape a space station after a mysterious impact." +
                             "Move between rooms and search for clues or tools to escape.\n" +
+                            "(This is just for your own experience player pls do not use yes button until needed            otherwise you end the game pretty quickly)\n" +
                             "Thanks for Tryin my game! Press 'Yes' to begin."
                 } else {
                     if (app.currentRoom?.name == "Maintenace Room" && !app.foundTool) {

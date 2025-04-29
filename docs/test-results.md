@@ -10,7 +10,7 @@ In this test im going to see if i can make the player move from room to room
 ### Data used:MutableMapOfString
 
 I am going to use this to generally shape my map and then im going to use north, south, east and west for me to call it easily and move my player. 
-I am also going to add more stuff which maybe make my game feel a bit better. I will write in this test result again after 11 days   
+I am also going to add more stuff which maybe make my game feel a bit better. I will write in this test result again after 2 weeks days   
 
 ### Test Result
 

@@ -111,9 +111,53 @@ Im going to use this data to make it so that if the player searches a room he ge
 and make some class statements to make it so that when the player first visits it shows original dialogue but if enters again new dialogue show up.
 ### Test Result
 
-![No.png](screenshots/example.png)
+![1.png](screenshots/New image 1.png)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+In this image which i forgot to show in my previous test result but i added a first visited var to check if the player has visited that 
+room.
+
+![2.png](screenshots/New image 2.png)
+
+In this image you can see nothing really has change since the last test result but i have added a val called inventory which then 
+later on gets a func which will detect if the player is in the room and make them able to search it for tools or items
+
+![3.png](screenshots/New image 3.png)
+
+In my mainclass window i have added a func which allowed me to make it so that when the player enters the room called 
+Maintenance he will be able to search it by pressing yes and it will show dialogue with it to show the user what to do.
+
+
+![4.png](screenshots/New image 4.png)
+
+In my update view i have added some things such as where previously the player would enter the room again but show nothing 
+but i added a val statement for my item pickup which makes it so that when the player pressed yes dialogue would pop up and if he 
+pressed no nothing would happen and the no buttons one dialogue would show up which was "you continue on your journey"
+
+![5.png](screenshots/New image 5.png)
+
+In image 5 i have added a end game screen which will congratulate the player on his\her escape.
+
+![6.png](screenshots/New image 6.png)
+
+On my previous image of my yes button i only had the game start, enablemovementbuttons and currentroom but i have added a 
+few things where i previously stated that if my player was in the maintenance the code would first check to see if he was in the room
+then if the player pressed yes it would then pop up the dialogue of the scatter tools and then say tools added to inventory and
+the app.inventory would put tools in the mutableListOfStrings.
+
+![7.png](screenshots/New image 7.png)
+
+In my no button previously just made it so that when user is in the title screen and they press no they would get the rules of the 
+game but i added more stuff which makes it that when your just roaming the map and the player presses no it would say that they 
+stay put and also added the Maintenance found tool that if the player chose not to search the room it would say " You choose to 
+not search the room".
+
+![8.png](screenshots/New image 8.png)
+
+In my movement func i just added it so that when the player enters the room again show its discription and the extra dialogue with it.
+
+## After all those images of code this was the result of them ##
+
+![8.png](screenshots/New map 1.png)
 
 ---
 

@@ -280,7 +280,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Right.addActionListener(this)
         add(move_Right)
 
-        yes = JButton()
+        yes = JButton("Yes")
         yes.bounds = Rectangle(750, 315, 100, 100)
         yes.font = baseFont
         yes.background = Color(0,0,0,0)
@@ -290,7 +290,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         yes.addActionListener(this)  // Handle Yes clicks.
         add(yes)
 
-        no = JButton()
+        no = JButton("No")
         no.bounds = Rectangle(875, 315, 100, 100)
         no.font = baseFont
         no.background = Color(0,0,0,0)

@@ -7,7 +7,7 @@ The test results show the actual outcome of the testing, following the [Test Pla
 ## Test Name: Movement 
 
 In this test im going to see if i can make the player move from room to room 
-### Data used:MutableMapOfString
+### Data used: MutableMapOfString
 
 I am going to use this to generally shape my map and then im going to use north, south, east and west for me to call it easily and move my player. 
 I am also going to add more stuff which maybe make my game feel a bit better. I will write in this test result again after 2 weeks days   
@@ -101,14 +101,14 @@ say you can't go tha way
 
 ---
 
-## Example Test Name
+## Item pickup and second dialogue for rooms
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+In this test i made it so that when my character enters a certain room he can pick or search the room for a item. i will also make it so that when the player enters the room a second time new dialogue pops up. 
 
-### Test Data Used
+### MutableListOfString and some classes
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
-
+Im going to use this data to make it so that if the player searches a room he gets a tool and that gets added to his "inventory" 
+and make some class statements to make it so that when the player first visits it shows original dialogue but if enters again new dialogue show up.
 ### Test Result
 
 ![No.png](screenshots/example.png)

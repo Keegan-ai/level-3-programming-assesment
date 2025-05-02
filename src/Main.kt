@@ -240,7 +240,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         UI.lineWrap = true
         add(UI)
 
-        move_Forward = JButton("^")
+        move_Forward = JButton()
         move_Forward.bounds = Rectangle(495, 265, 75, 75)
         move_Forward.font = baseFont
         move_Forward.background = Color(0,0,0,0)
@@ -250,7 +250,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Forward.addActionListener(this)  // Handle movement clicks.
         add(move_Forward)
 
-        move_Backward = JButton("v")
+        move_Backward = JButton()
         move_Backward.bounds = Rectangle(495, 415, 75, 75)
         move_Backward.font = baseFont
         move_Backward.background = Color(0,0,0,0)
@@ -260,7 +260,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Backward.addActionListener(this)
         add(move_Backward)
 
-        move_Left = JButton("<")
+        move_Left = JButton()
         move_Left.bounds = Rectangle(420, 340, 75, 74)
         move_Left.font = baseFont
         move_Left.background = Color(0,0,0,0)
@@ -270,7 +270,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Left.addActionListener(this)
         add(move_Left)
 
-        move_Right = JButton(">")
+        move_Right = JButton()
         move_Right.bounds = Rectangle(570, 340, 75, 75)
         move_Right.font = baseFont
         move_Right.background = Color(0,0,0,0)
@@ -280,7 +280,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         move_Right.addActionListener(this)
         add(move_Right)
 
-        yes = JButton("Yes")
+        yes = JButton()
         yes.bounds = Rectangle(750, 315, 100, 100)
         yes.font = baseFont
         yes.background = Color(0,0,0,0)
@@ -290,7 +290,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
         yes.addActionListener(this)  // Handle Yes clicks.
         add(yes)
 
-        no = JButton("No")
+        no = JButton()
         no.bounds = Rectangle(875, 315, 100, 100)
         no.font = baseFont
         no.background = Color(0,0,0,0)

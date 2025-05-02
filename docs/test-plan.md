@@ -10,31 +10,35 @@ Terminology:
 
 ---
 
-## Example Test Name
+## Test Name: Movement
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+In this test im going to see if i can make the player move from room to room
 
-### Test Data To Use
+### Data to use: MutableMapOfString
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+I am going to use this to generally shape my map and then im going to use north, south, east and west for me to call it easily and move my player.
+I am also going to add more stuff which maybe make my game feel a bit better. I will write in this test result again after 2 weeks days
+
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+I expect my player to move from one room to another using the buttons i implemented.
 
 ---
 
-## Example Test Name
+## Test Name:Item pickup and second dialogue for rooms
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+In this test i made it so that when my character enters a certain room he can pick or search the room for a item. i will also make it so that when the player enters the room a second time new dialogue pops up.
 
-### Test Data To Use
+### Data to use:MutableListOfString and some classes
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+Im going to use this data to make it so that if the player searches a room he gets a tool and that gets added to his "inventory"
+and make some class statements to make it so that when the player first visits it shows original dialogue but if enters again new dialogue show up.
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+I expect that if my player goes into a room that says search the player would be able to press yes and search the room 
+acquiring a tool and also if the player enters the room for a second time i expect extra dialogue to pop up.
 
 ---
 

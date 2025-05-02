@@ -157,7 +157,45 @@ In my movement func i just added it so that when the player enters the room agai
 
 ## After all those images of code this was the result of them ##
 
-![8.png](screenshots/New map 1.png)
+![New Map 1.png](screenshots/New map 1.png)
+
+First image is just to show what it will look like when someone plays the game.
+
+![New Map 2.png](screenshots/New map 2.png)
+
+This image shows what happened when the player presses no which makes it so that the rules pop up.
+
+![New Map 3.png](screenshots/New map 3.png)
+
+This image just shows that when the player starts the game they are first put into this room which is the starting room of my 
+game.
+
+![New Map 4.png](screenshots/New map 4.png)
+
+This image shows what happens if the player enters the room for a second time making the 'You remember your first visit here pop up'.
+
+![New Map 5.png](screenshots/New map 5.png)
+
+The fifth image shows you that i am in the maintenance room.It's just to show what happens when the player first enters the 
+room.
+
+![New Map 6.png](screenshots/New map 6.png)
+
+This image shows that when i pressed the yes button my code did what it was suppose to do and that was show that line of 
+dialogue and add tools to the MutableListOfString.
+
+![New Map 7.png](screenshots/New map 7.png)
+
+This image what happens if the player presses no.Dialogue just pops up when the player presses no instead of yes.
+
+![New Map 8.png](screenshots/New map 8.png)
+
+This image is just to show what the escape pod dialogue looks like.
+
+![New Map 9.png](screenshots/New map 9.png)
+
+This is what happens after the player presses yes in the escape pod room which allows then to win the game but there is a bug 
+which i didnt have time for where if the player just presses anytime the game just ends playing the Congratulations screen. 
 
 ---
 

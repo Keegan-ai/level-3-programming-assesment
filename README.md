@@ -11,12 +11,7 @@ The project is written in the [Kotlin](https://kotlinlang.org) programming langu
 - Reading from, or writing to, files
 - Object-oriented programming (OOP) classes and objects
 - Self-defined types
-- Using complex data structures (e.g. stacks, queues, trees)
 
-** EDIT LIST ABOVE TO MATCH YOUR PROJECT**
-Object-oriented programming (OOP) classes and objects
-Programming a graphical user interface (GUI)
-Self-defined types
 ---
 
 ## Project Files
@@ -29,5 +24,5 @@ Self-defined types
 
 ## Project Description
 
-**PLACE YOUR PROJECT DESCRIPTION HERE**
+**Space Terror** is a game where you a sole survivor of a mysterious incident where a foreign object has crashed against your space station.You will need to find a way to escape the space station.
 
